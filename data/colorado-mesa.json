@@ -1,0 +1,104 @@
+{
+  "school": {
+    "id": "colorado-mesa",
+    "name": "Colorado Mesa University",
+    "slug": "colorado-mesa",
+    "website": "https://www.coloradomesa.edu",
+    "control": "public",
+    "city": "Grand Junction",
+    "state": "CO"
+  },
+  "admission_stats": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "acceptance_rate": 0.886,
+    "applicants": 38520,
+    "admitted": 34118,
+    "enrolled": 5429,
+    "yield": 0.159
+  },
+  "test_scores": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "sat_reading_writing": { "min": 480, "max": 590 },
+    "sat_math": { "min": 450, "max": 570 },
+    "sat_composite": { "min": 1060, "max": 1280 },
+    "act_composite": { "min": 18, "max": 24 },
+    "test_optional": true,
+    "percent_submitting_sat": 51.9,
+    "percent_submitting_act": 8.1
+  },
+  "gpa_profile": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "average_gpa": 3.34,
+    "percent_in_top_tenth": 2.3,
+    "percent_in_top_quarter": 12.0,
+    "percent_in_top_half": 34.9
+  },
+  "deadlines": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "deadlines": [
+      {
+        "type": "early_action",
+        "label": "Early Action",
+        "deadline": null,
+        "notification_date": null
+      },
+      {
+        "type": "rolling",
+        "label": "Regular Decision (rolling)",
+        "deadline": null,
+        "notification_date": null
+      }
+    ]
+  },
+  "cost_of_attendance": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "tuition": {
+      "type": "residency_based",
+      "in_state": 9630,
+      "out_of_state": 26220
+    },
+    "required_fees": 984,
+    "room_and_board": 13866,
+    "books_and_supplies": 2400
+  },
+  "financial_aid_profile": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "average_need_based_package": 13252,
+    "average_debt_at_graduation": 23189
+  },
+  "enrollment_profile": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "total_enrollment": 9785,
+    "undergraduate_enrollment": 9473,
+    "graduate_enrollment": 312,
+    "student_faculty_ratio": "18:1",
+    "percent_out_of_state": 15.1
+  },
+  "academic_programs": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "degrees_offered": [
+      "Certificate",
+      "Associate",
+      "Bachelor's",
+      "Master's",
+      "Doctoral degree – research/scholarship",
+      "Doctoral degree – professional practice"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "college-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server exposing verified college admissions data from CDS sources",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "college-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "dev:baylor": "SCHOOL=baylor tsx src/index.ts",
+    "dev:colorado-mesa": "SCHOOL=colorado-mesa tsx src/index.ts"
+  },
+  "packageManager": "pnpm@11.10.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "school": {
+    "id": "baylor",
+    "name": "Baylor University",
+    "slug": "baylor",
+    "website": "https://www.baylor.edu",
+    "control": "private_nonprofit",
+    "city": "Waco",
+    "state": "TX"
+  },
+  "admission_stats": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "acceptance_rate": 0.513,
+    "applicants": 46946,
+    "admitted": 24075,
+    "enrolled": 3427,
+    "yield": 0.142
+  },
+  "test_scores": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "sat_reading_writing": { "min": 580, "max": 680 },
+    "sat_math": { "min": 570, "max": 680 },
+    "sat_composite": { "min": 1160, "max": 1340 },
+    "act_composite": { "min": 25, "max": 31 },
+    "test_optional": true,
+    "percent_submitting_sat": 43.95,
+    "percent_submitting_act": 23.43
+  },
+  "gpa_profile": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "average_gpa": null,
+    "percent_in_top_tenth": 35.36,
+    "percent_in_top_quarter": 67.77,
+    "percent_in_top_half": 93.63
+  },
+  "deadlines": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "deadlines": [
+      {
+        "type": "early_decision",
+        "label": "Early Decision",
+        "deadline": "November 1",
+        "notification_date": "December 15"
+      },
+      {
+        "type": "regular",
+        "label": "Regular Decision (rolling)",
+        "deadline": null,
+        "notification_date": null
+      }
+    ]
+  },
+  "cost_of_attendance": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "tuition": { "type": "flat", "flat": 63620 },
+    "required_fees": 280,
+    "room_and_board": 16638,
+    "total_cost_of_attendance": 80538
+  },
+  "financial_aid_profile": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "percent_need_fully_met": null,
+    "average_need_based_package": 40885,
+    "average_debt_at_graduation": 49299
+  },
+  "enrollment_profile": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "total_enrollment": 20626,
+    "undergraduate_enrollment": 14915,
+    "graduate_enrollment": 5711,
+    "student_faculty_ratio": "15:1",
+    "percent_out_of_state": 36
+  },
+  "academic_programs": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "degrees_offered": [
+      "Certificate",
+      "Bachelor's",
+      "Post-bachelor's certificate",
+      "Master's",
+      "Doctoral degree – research/scholarship",
+      "Doctoral degree – professional practice"
+    ]
+  }
+}

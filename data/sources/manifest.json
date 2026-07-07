@@ -1,0 +1,20 @@
+{
+  "academic_year": "2024-2025",
+  "schools": [
+    {
+      "slug": "baylor",
+      "name": "Baylor University",
+      "local_pdf": "baylor-cds-2024-2025.pdf",
+      "source_url": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+      "source_page": "https://ir.web.baylor.edu/institutional-reports/common-data-set",
+      "last_updated_on_source": "2025-04-03"
+    },
+    {
+      "slug": "colorado-mesa",
+      "name": "Colorado Mesa University",
+      "local_pdf": "colorado-mesa-cds-2024-2025.pdf",
+      "source_url": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+      "source_page": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/"
+    }
+  ]
+}
