@@ -1,6 +1,25 @@
 # Demo Prompts — Student Choosing Between Schools
 
-Copy and paste these into Claude (with both **baylor-admissions** and **colorado-mesa-admissions** connected). Read them as Jordan, a high school senior from Denver with a 3.6 GPA and an 1180 SAT, trying to choose between Baylor and Colorado Mesa.
+Copy and paste these into Claude or Cursor with the **college-admissions** connector enabled. Read them as Jordan, a high school senior from Denver with a 3.6 GPA and an 1180 SAT, trying to choose between Baylor and Colorado Mesa.
+
+## Setup
+
+**Cursor:** Open this repo — `.cursor/mcp.json` configures the hub automatically. Run `pnpm build`, then enable **college-admissions** in Customize.
+
+**Claude Desktop:** Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "college-admissions": {
+      "command": "node",
+      "args": ["/absolute/path/to/college-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+Replace the path with your local clone. Run `pnpm build` first.
 
 ---
 

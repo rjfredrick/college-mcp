@@ -1,8 +1,25 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
 
+import { listSchoolSummaries, resolveSchoolSlug } from "./data.js";
 import type { SchoolData, ToolSection } from "./schema.js";
 
 type ToolResponse = Record<string, unknown> | null;
+
+const schoolInputSchema = {
+  school: z
+    .string()
+    .describe(
+      "School slug from list_schools (e.g. baylor, colorado-mesa)",
+    ),
+};
+
+const readOnlyToolAnnotations = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+} as const;
 
 function sectionOrNull<T extends ToolResponse>(
   data: SchoolData,
@@ -40,20 +57,73 @@ function formatResult(payload: ToolResponse): {
   };
 }
 
+function formatError(message: string): {
+  content: Array<{ type: "text"; text: string }>;
+  isError: true;
+} {
+  return {
+    content: [
+      {
+        type: "text",
+        text: JSON.stringify({ error: "invalid_request", message }, null, 2),
+      },
+    ],
+    isError: true,
+  };
+}
+
+function getSchoolData(
+  schools: Map<string, SchoolData>,
+  school: string,
+): SchoolData | { error: string } {
+  try {
+    const slug = resolveSchoolSlug(school);
+    return schools.get(slug)!;
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    return { error: message };
+  }
+}
+
 export function registerAdmissionsTools(
   server: McpServer,
-  data: SchoolData,
+  schools: Map<string, SchoolData>,
 ): void {
+  server.registerTool(
+    "list_schools",
+    {
+      description:
+        "List all schools available in this admissions hub with slug, name, state, and control type. Call this first when comparing schools or when the user has not named a specific institution.",
+      inputSchema: {},
+      annotations: readOnlyToolAnnotations,
+    },
+    async () => ({
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify({ schools: listSchoolSummaries() }, null, 2),
+        },
+      ],
+    }),
+  );
+
   server.registerTool(
     "get_school_info",
     {
       description:
-        "Get basic identifying information about this institution (name, location, control type, website).",
-      inputSchema: {},
+        "Get basic identifying information about an institution (name, location, control type, website).",
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => ({
-      content: [{ type: "text", text: JSON.stringify(data.school, null, 2) }],
-    }),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return {
+        content: [{ type: "text", text: JSON.stringify(data.school, null, 2) }],
+      };
+    },
   );
 
   server.registerTool(
@@ -61,9 +131,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get admission statistics: acceptance rate, applicants, admitted, enrolled, and yield.",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "admission_stats")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "admission_stats"));
+    },
   );
 
   server.registerTool(
@@ -71,9 +148,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get SAT/ACT middle-50 score ranges and test submission rates.",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "test_scores")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "test_scores"));
+    },
   );
 
   server.registerTool(
@@ -81,9 +165,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get GPA profile: average GPA and class rank distribution.",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "gpa_profile")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "gpa_profile"));
+    },
   );
 
   server.registerTool(
@@ -91,9 +182,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get application and notification dates by plan (ED, EA, RD, rolling). Use for 'when is the deadline?' and 'when will I hear back?'",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "deadlines")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "deadlines"));
+    },
   );
 
   server.registerTool(
@@ -101,9 +199,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get application process rules: fees, reply policy, housing deposit, binding ED, rolling behavior, and official apply URL. Use for 'what are the rules?' and 'what happens after I'm admitted?'",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "application_policies")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "application_policies"));
+    },
   );
 
   server.registerTool(
@@ -111,9 +216,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get cost of attendance: tuition, fees, room/board (in-state/out-of-state where applicable).",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "cost_of_attendance")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "cost_of_attendance"));
+    },
   );
 
   server.registerTool(
@@ -121,9 +233,16 @@ export function registerAdmissionsTools(
     {
       description:
         "Get financial aid profile: average package, percent need met, average debt at graduation.",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "financial_aid_profile")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "financial_aid_profile"));
+    },
   );
 
   server.registerTool(
@@ -131,17 +250,31 @@ export function registerAdmissionsTools(
     {
       description:
         "Get enrollment profile: total enrollment, undergrad/grad split, student:faculty ratio.",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "enrollment_profile")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "enrollment_profile"));
+    },
   );
 
   server.registerTool(
     "get_academic_programs",
     {
       description: "Get degrees offered and program-level data.",
-      inputSchema: {},
+      inputSchema: schoolInputSchema,
+      annotations: readOnlyToolAnnotations,
     },
-    async () => formatResult(sectionOrNull(data, "academic_programs")),
+    async ({ school }) => {
+      const data = getSchoolData(schools, school);
+      if ("error" in data) {
+        return formatError(data.error);
+      }
+      return formatResult(sectionOrNull(data, "academic_programs"));
+    },
   );
 }

@@ -10,9 +10,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
-    "dev:baylor": "SCHOOL=baylor tsx src/index.ts",
-    "dev:colorado-mesa": "SCHOOL=colorado-mesa tsx src/index.ts"
+    "start": "node dist/index.js"
   },
   "packageManager": "pnpm@11.10.0",
   "engines": {
