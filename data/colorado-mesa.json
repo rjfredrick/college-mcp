@@ -43,19 +43,59 @@
     "last_updated": "2025-01-01",
     "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
     "academic_year": "2024-2025",
-    "deadlines": [
+    "plans": [
       {
         "type": "early_action",
         "label": "Early Action",
-        "deadline": null,
-        "notification_date": null
+        "binding": false,
+        "rolling": false,
+        "application_deadline": null,
+        "priority_application_deadline": null,
+        "notification_date": null,
+        "enrollment_deposit_deadline": null
       },
       {
         "type": "rolling",
         "label": "Regular Decision (rolling)",
-        "deadline": null,
-        "notification_date": null
+        "binding": false,
+        "rolling": true,
+        "application_deadline": null,
+        "priority_application_deadline": "November 15",
+        "notification_date": null,
+        "enrollment_deposit_deadline": null
       }
+    ]
+  },
+  "application_policies": {
+    "last_updated": "2025-01-01",
+    "source": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "admissions_url": "https://www.coloradomesa.edu/admissions/apply.html",
+    "has_application_fee": true,
+    "application_fee": 40,
+    "fee_waiver_available": true,
+    "online_same_fee": true,
+    "reply_policy": {
+      "type": "no_set_date",
+      "description": "No set reply date",
+      "weeks_after_notification": null
+    },
+    "housing_deposit": {
+      "amount": 350,
+      "deadline": null,
+      "refundable": null
+    },
+    "deferred_admission_allowed": true,
+    "max_deferral_period": "12 months",
+    "offers_early_decision": false,
+    "offers_early_action": true,
+    "restrictive_early_action": false,
+    "notification_rolling": true,
+    "has_application_closing_date": true,
+    "test_policy_summary": "SAT/ACT not required for admission; considered if submitted",
+    "policy_notes": [
+      "Applications are reviewed on a rolling basis.",
+      "First-time, first-year students are accepted for terms other than fall."
     ]
   },
   "cost_of_attendance": {

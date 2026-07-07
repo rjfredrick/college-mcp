@@ -43,19 +43,60 @@
     "last_updated": "2025-04-03",
     "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
     "academic_year": "2024-2025",
-    "deadlines": [
+    "plans": [
       {
         "type": "early_decision",
         "label": "Early Decision",
-        "deadline": "November 1",
-        "notification_date": "December 15"
+        "binding": true,
+        "rolling": false,
+        "application_deadline": "November 1",
+        "priority_application_deadline": null,
+        "notification_date": "December 15",
+        "enrollment_deposit_deadline": "February 15"
       },
       {
         "type": "regular",
         "label": "Regular Decision (rolling)",
-        "deadline": null,
-        "notification_date": null
+        "binding": false,
+        "rolling": true,
+        "application_deadline": null,
+        "priority_application_deadline": null,
+        "notification_date": null,
+        "enrollment_deposit_deadline": null
       }
+    ]
+  },
+  "application_policies": {
+    "last_updated": "2025-04-03",
+    "source": "https://ir.web.baylor.edu/sites/g/files/ecbvkj1621/files/2025-04/CDS-2024-2025-Baylor%20University.pdf",
+    "academic_year": "2024-2025",
+    "admissions_url": "https://admissions.web.baylor.edu/apply",
+    "has_application_fee": false,
+    "application_fee": 0,
+    "fee_waiver_available": null,
+    "online_same_fee": null,
+    "reply_policy": {
+      "type": "may_1_or_weeks_after",
+      "description": "Must reply by May 1 or within 2 weeks if notified thereafter",
+      "weeks_after_notification": 2
+    },
+    "housing_deposit": {
+      "amount": 500,
+      "deadline": null,
+      "refundable": null
+    },
+    "deferred_admission_allowed": true,
+    "max_deferral_period": "1 year",
+    "offers_early_decision": true,
+    "offers_early_action": false,
+    "restrictive_early_action": null,
+    "notification_rolling": true,
+    "has_application_closing_date": false,
+    "test_policy_summary": "SAT/ACT considered if submitted",
+    "policy_notes": [
+      "Early Decision is binding. If admitted under ED, students must enroll and withdraw other applications.",
+      "Early Decision applicants: 640 applied, 491 admitted (Fall 2024 entering class).",
+      "Students applying Early Decision must submit transcript, test scores if applicable, essay, and short answer by November 1."
     ]
   },
   "cost_of_attendance": {

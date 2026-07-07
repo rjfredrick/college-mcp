@@ -21,6 +21,10 @@ async function main(): Promise<void> {
         "Data is sourced from the Common Data Set (CDS) and includes last_updated, source, and academic_year on every section.",
         "If a tool returns not_available, that section has not been extracted yet — do not guess or fabricate values.",
         "Use get_school_info first to confirm you are querying the correct institution.",
+        "For admissions timing questions, call get_deadlines and get_application_policies together.",
+        "Explain ED vs EA vs rolling in plain language. Warn explicitly when Early Decision is binding.",
+        "Always state academic_year and last_updated. If a date or field is null, say it is not in the published CDS data and direct the student to admissions_url — never invent dates.",
+        "Deadline guidance is informational; students must confirm on the school's official site before submitting.",
       ].join(" "),
     },
   );

@@ -90,10 +90,20 @@ export function registerAdmissionsTools(
     "get_deadlines",
     {
       description:
-        "Get application deadlines and notification dates (EA/ED/RD/rolling).",
+        "Get application and notification dates by plan (ED, EA, RD, rolling). Use for 'when is the deadline?' and 'when will I hear back?'",
       inputSchema: {},
     },
     async () => formatResult(sectionOrNull(data, "deadlines")),
+  );
+
+  server.registerTool(
+    "get_application_policies",
+    {
+      description:
+        "Get application process rules: fees, reply policy, housing deposit, binding ED, rolling behavior, and official apply URL. Use for 'what are the rules?' and 'what happens after I'm admitted?'",
+      inputSchema: {},
+    },
+    async () => formatResult(sectionOrNull(data, "application_policies")),
   );
 
   server.registerTool(

@@ -46,15 +46,50 @@ export interface GpaProfile extends ResponseMetadata {
   percent_in_top_half?: number | null;
 }
 
-export interface ApplicationDeadline {
+export interface AdmissionPlan {
   type: "early_decision" | "early_action" | "regular" | "rolling" | "other";
   label?: string;
-  deadline?: string | null;
+  binding?: boolean | null;
+  rolling?: boolean | null;
+  application_deadline?: string | null;
+  priority_application_deadline?: string | null;
   notification_date?: string | null;
+  enrollment_deposit_deadline?: string | null;
 }
 
 export interface Deadlines extends ResponseMetadata {
-  deadlines: ApplicationDeadline[];
+  plans: AdmissionPlan[];
+}
+
+export interface ReplyPolicy {
+  type: "may_1" | "may_1_or_weeks_after" | "no_set_date" | "other";
+  description?: string | null;
+  weeks_after_notification?: number | null;
+}
+
+export interface HousingDeposit {
+  amount?: number | null;
+  deadline?: string | null;
+  refundable?: boolean | null;
+}
+
+export interface ApplicationPolicies extends ResponseMetadata {
+  admissions_url?: string | null;
+  has_application_fee?: boolean | null;
+  application_fee?: number | null;
+  fee_waiver_available?: boolean | null;
+  online_same_fee?: boolean | null;
+  reply_policy?: ReplyPolicy | null;
+  housing_deposit?: HousingDeposit | null;
+  deferred_admission_allowed?: boolean | null;
+  max_deferral_period?: string | null;
+  offers_early_decision?: boolean | null;
+  offers_early_action?: boolean | null;
+  restrictive_early_action?: boolean | null;
+  notification_rolling?: boolean | null;
+  has_application_closing_date?: boolean | null;
+  test_policy_summary?: string | null;
+  policy_notes?: string[];
 }
 
 export interface Tuition {
@@ -104,6 +139,7 @@ export interface SchoolData {
   test_scores: TestScores | null;
   gpa_profile: GpaProfile | null;
   deadlines: Deadlines | null;
+  application_policies: ApplicationPolicies | null;
   cost_of_attendance: CostOfAttendance | null;
   financial_aid_profile: FinancialAidProfile | null;
   enrollment_profile: EnrollmentProfile | null;
