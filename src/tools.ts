@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { listSchoolSummaries, resolveSchoolSlug } from "./data.js";
 import { buildSchoolComparison } from "./compare.js";
+import { omitSourceFields } from "./sanitize.js";
 import type { SchoolData, ToolSection } from "./schema.js";
 
 type ToolResponse = Record<string, unknown> | null;
@@ -54,7 +55,9 @@ function formatResult(payload: ToolResponse): {
   }
 
   return {
-    content: [{ type: "text", text: JSON.stringify(payload, null, 2) }],
+    content: [
+      { type: "text", text: JSON.stringify(omitSourceFields(payload), null, 2) },
+    ],
   };
 }
 
@@ -93,6 +96,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "list_schools",
     {
+      title: "List Schools",
       description:
         "List all schools available in this admissions hub with slug, name, state, and control type. Call this first when comparing schools or when the user has not named a specific institution.",
       inputSchema: {},
@@ -111,8 +115,9 @@ export function registerAdmissionsTools(
   server.registerTool(
     "compare_schools",
     {
+      title: "Compare Schools",
       description:
-        "Compare 2–5 schools side-by-side. Returns a ready-to-show comparison report (markdown table) plus dashboard_json for structured follow-ups.",
+        "Compare 2–5 schools side-by-side. Returns structured tabular comparison data (metrics per school, residency/cost for student_home_state). Render as markdown tables in the client.",
       inputSchema: {
         schools: z
           .array(z.string())
@@ -156,32 +161,26 @@ export function registerAdmissionsTools(
         student_home_state,
       });
 
-      const content: Array<{ type: "text"; text: string }> = [];
+      const payload =
+        errors.length > 0
+          ? { warnings: errors, ...comparison }
+          : comparison;
 
-      if (errors.length > 0) {
-        content.push({
-          type: "text",
-          text: `Warnings: ${errors.join("; ")}`,
-        });
-      }
-
-      content.push({
-        type: "text",
-        text: comparison.comparison_report,
-      });
-
-      content.push({
-        type: "text",
-        text: JSON.stringify(comparison.dashboard_json, null, 2),
-      });
-
-      return { content };
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(payload, null, 2),
+          },
+        ],
+      };
     },
   );
 
   server.registerTool(
     "get_school_info",
     {
+      title: "School Info",
       description:
         "Get basic identifying information about an institution (name, location, control type, website).",
       inputSchema: schoolInputSchema,
@@ -201,6 +200,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_admission_stats",
     {
+      title: "Admission Stats",
       description:
         "Get admission statistics: acceptance rate, applicants, admitted, enrolled, and yield.",
       inputSchema: schoolInputSchema,
@@ -218,6 +218,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_test_scores",
     {
+      title: "Test Scores",
       description:
         "Get SAT/ACT middle-50 score ranges and test submission rates.",
       inputSchema: schoolInputSchema,
@@ -235,6 +236,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_gpa_profile",
     {
+      title: "GPA Profile",
       description:
         "Get GPA profile: average GPA and class rank distribution.",
       inputSchema: schoolInputSchema,
@@ -252,6 +254,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_deadlines",
     {
+      title: "Application Deadlines",
       description:
         "Get application and notification dates by plan (ED, EA, RD, rolling). Use for 'when is the deadline?' and 'when will I hear back?'",
       inputSchema: schoolInputSchema,
@@ -269,6 +272,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_application_policies",
     {
+      title: "Application Policies",
       description:
         "Get application process rules: fees, reply policy, housing deposit, binding ED, rolling behavior, and official apply URL. Use for 'what are the rules?' and 'what happens after I'm admitted?'",
       inputSchema: schoolInputSchema,
@@ -286,6 +290,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_cost_of_attendance",
     {
+      title: "Cost of Attendance",
       description:
         "Get cost of attendance: tuition, fees, room/board (in-state/out-of-state where applicable).",
       inputSchema: schoolInputSchema,
@@ -303,6 +308,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_financial_aid_profile",
     {
+      title: "Financial Aid Profile",
       description:
         "Get financial aid profile: average package, percent need met, average debt at graduation.",
       inputSchema: schoolInputSchema,
@@ -320,6 +326,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_enrollment_profile",
     {
+      title: "Enrollment Profile",
       description:
         "Get enrollment profile: total enrollment, undergrad/grad split, student:faculty ratio.",
       inputSchema: schoolInputSchema,
@@ -337,6 +344,7 @@ export function registerAdmissionsTools(
   server.registerTool(
     "get_academic_programs",
     {
+      title: "Academic Programs",
       description: "Get degrees offered and program-level data.",
       inputSchema: schoolInputSchema,
       annotations: readOnlyToolAnnotations,

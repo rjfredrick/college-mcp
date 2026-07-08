@@ -51,6 +51,12 @@ export interface CompareDashboardMetrics {
   deadlines_summary: string;
 }
 
+export interface CompareVerification {
+  last_updated: string;
+  academic_year: string;
+  provider: "college-admissions";
+}
+
 export interface CompareDashboardSchool {
   slug: string;
   name: string;
@@ -59,11 +65,7 @@ export interface CompareDashboardSchool {
   control: string;
   metrics: CompareDashboardMetrics;
   programs: string[];
-  source: {
-    url: string;
-    last_updated: string;
-    academic_year: string;
-  } | null;
+  verification: CompareVerification | null;
 }
 
 export interface CompareDashboard {
@@ -75,28 +77,20 @@ export interface CompareDashboard {
   schools: CompareDashboardSchool[];
 }
 
-export interface SchoolsComparison {
-  schools: string[];
-  compared_at: string;
-  comparison_table: string;
-  sources_line: string;
-  comparison_report: string;
-  dashboard_json: CompareDashboard;
-}
-
-/** Guidance for assistants after compare_schools — report is already formatted. */
+/** Guidance for assistants after compare_schools — data is structured, presentation is model-side. */
 export const COMPARE_OUTPUT_FORMAT = [
-  "compare_schools returns a ready-to-show comparison_report (markdown table plus sources) as the first result.",
-  "Show that report to the user with minimal changes — do not rewrite the table or restate every number in prose.",
-  "Add brief interpretation only if the user asked for advice, max 2 bullets per topic.",
-  "Use dashboard_json (second result block) only for charts, dashboards, or structured follow-ups.",
+  "compare_schools returns structured tabular comparison data: schools[] with metrics objects and verification (last_updated, academic_year).",
+  "Render the stats as a markdown table (schools = columns, metrics = rows) before interpreting.",
+  "Cite verification dates and academic_year per school; do not link to or cite underlying CDS PDF URLs.",
+  "If the user shared GPA, SAT, or interests, add a second markdown table for fit, cost, deadline risk, and tradeoffs — not prose paragraphs.",
+  "Do not restate every number from the stats table in prose.",
 ].join(" ");
 
 export function buildSchoolComparison(
   schools: Map<string, SchoolData>,
   slugs: string[],
   options: CompareOptions = {},
-): SchoolsComparison {
+): CompareDashboard {
   const entries: SchoolComparisonEntry[] = [];
 
   for (const slug of slugs) {
@@ -127,22 +121,7 @@ export function buildSchoolComparison(
     });
   }
 
-  const comparison_table = buildComparisonTable(
-    entries,
-    options.student_home_state,
-  );
-  const sources_line = buildSourcesLine(entries);
-  const comparison_report = `${comparison_table}\n\n${sources_line}`;
-  const compared_at = new Date().toISOString();
-
-  return {
-    schools: slugs,
-    compared_at,
-    comparison_table,
-    sources_line,
-    comparison_report,
-    dashboard_json: buildDashboardJson(entries, options, compared_at),
-  };
+  return buildDashboardJson(entries, options, new Date().toISOString());
 }
 
 function buildDashboardJson(
@@ -178,10 +157,7 @@ function buildDashboardJson(
           percent_in_top_tenth: gpa?.percent_in_top_tenth ?? null,
           student_faculty_ratio:
             entry.sections.enrollment_profile?.student_faculty_ratio ?? null,
-          residency_for_student: formatResidency(entry, homeState).replace(
-            /\*\*/g,
-            "",
-          ),
+          residency_for_student: formatResidency(entry, homeState),
           cost_for_student: cost.amount,
           cost_label: cost.label,
           debt_at_graduation:
@@ -191,14 +167,14 @@ function buildDashboardJson(
             entry.sections.application_policies?.application_fee ?? null,
           fee_waiver_available:
             entry.sections.application_policies?.fee_waiver_available ?? null,
-          deadlines_summary: formatDeadlinesCell(entry),
+          deadlines_summary: formatDeadlinesSummary(entry),
         },
         programs,
-        source: stats
+        verification: stats
           ? {
-              url: stats.source,
               last_updated: stats.last_updated,
               academic_year: stats.academic_year,
+              provider: "college-admissions" as const,
             }
           : null,
       };
@@ -254,66 +230,6 @@ function computeCostForStudent(
   return { amount: null, label: "n/a" };
 }
 
-function buildSourcesLine(entries: SchoolComparisonEntry[]): string {
-  const parts = entries.map((entry) => {
-    const stats = entry.sections.admission_stats;
-    const shortName = shortSchoolName(entry.name);
-    const updated = stats?.last_updated ?? "n/a";
-    const year = stats?.academic_year ?? "n/a";
-    return `${shortName} CDS ${year} (${updated})`;
-  });
-
-  const programs = entries.every((e) =>
-    entryHasPrograms(e, ["Nursing", "Business"]),
-  );
-
-  let line = `Sources: ${parts.join("; ")}.`;
-  if (programs) {
-    line += " All offer bachelor's Nursing and Business programs.";
-  }
-  return line;
-}
-
-function entryHasPrograms(
-  entry: SchoolComparisonEntry,
-  names: string[],
-): boolean {
-  const programs = entry.sections.academic_programs?.programs ?? [];
-  return names.every((name) =>
-    programs.some((p) => p.name.toLowerCase().includes(name.toLowerCase())),
-  );
-}
-
-function buildComparisonTable(
-  entries: SchoolComparisonEntry[],
-  studentHomeState?: string,
-): string {
-  const homeState = studentHomeState?.trim().toUpperCase();
-  const headers = ["", ...entries.map(columnLabel)];
-  const rows = [
-    ["Acceptance rate", ...entries.map(formatAcceptanceRate)],
-    ["SAT middle 50", ...entries.map(formatSatRange)],
-    ["Avg. GPA / top-10%", ...entries.map(formatGpaCell)],
-    ["Student:faculty", ...entries.map(formatStudentFaculty)],
-    [
-      homeState ? `Residency for you (${homeState})` : "Residency note",
-      ...entries.map((e) => formatResidency(e, homeState)),
-    ],
-    ["Total cost of attendance", ...entries.map((e) => formatCost(e, homeState))],
-    ["Avg. debt at graduation", ...entries.map(formatDebt)],
-    ["App deadlines", ...entries.map(formatDeadlinesCell)],
-    ["App fee", ...entries.map(formatAppFee)],
-  ];
-
-  const lines = [
-    `| ${headers.join(" | ")} |`,
-    `| ${headers.map(() => "---").join(" | ")} |`,
-    ...rows.map((row) => `| ${row.map(escapeCell).join(" | ")} |`),
-  ];
-
-  return lines.join("\n");
-}
-
 function columnLabel(entry: SchoolComparisonEntry): string {
   const control =
     entry.control === "private_nonprofit" ? "private" : "public";
@@ -327,44 +243,6 @@ function shortSchoolName(name: string): string {
     .trim();
 }
 
-function escapeCell(value: string): string {
-  return value.replace(/\|/g, "\\|").replace(/\n/g, " ");
-}
-
-function formatAcceptanceRate(entry: SchoolComparisonEntry): string {
-  const rate = entry.sections.admission_stats?.acceptance_rate;
-  if (rate == null) {
-    return "n/a";
-  }
-  return `${(rate * 100).toFixed(1)}%`;
-}
-
-function formatSatRange(entry: SchoolComparisonEntry): string {
-  const scores = entry.sections.test_scores;
-  const composite = scores?.sat_composite;
-  if (composite?.min != null && composite?.max != null) {
-    return `${composite.min}–${composite.max}`;
-  }
-  return "n/a";
-}
-
-function formatGpaCell(entry: SchoolComparisonEntry): string {
-  const gpa = entry.sections.gpa_profile;
-  if (!gpa) {
-    return "n/a";
-  }
-  const avg = gpa.average_gpa != null ? gpa.average_gpa.toFixed(2) : "n/a";
-  const topTenth =
-    gpa.percent_in_top_tenth != null
-      ? `${gpa.percent_in_top_tenth}% top-10th`
-      : "n/a top-10th";
-  return `${avg} / ${topTenth}`;
-}
-
-function formatStudentFaculty(entry: SchoolComparisonEntry): string {
-  return entry.sections.enrollment_profile?.student_faculty_ratio ?? "n/a";
-}
-
 function formatResidency(
   entry: SchoolComparisonEntry,
   homeState?: string,
@@ -373,7 +251,7 @@ function formatResidency(
     return "Out-of-state (private, flat rate)";
   }
   if (homeState && homeState === entry.state.toUpperCase()) {
-    return "**In-state**";
+    return "In-state";
   }
   if (homeState) {
     return "Out-of-state";
@@ -385,54 +263,7 @@ function formatResidency(
   return "n/a";
 }
 
-function formatCost(
-  entry: SchoolComparisonEntry,
-  homeState?: string,
-): string {
-  const cost = entry.sections.cost_of_attendance;
-  if (!cost) {
-    return "n/a";
-  }
-
-  const inState =
-    homeState != null && homeState === entry.state.toUpperCase();
-
-  if (cost.tuition.type === "flat" && cost.total_cost_of_attendance != null) {
-    return `$${cost.total_cost_of_attendance.toLocaleString("en-US")}`;
-  }
-
-  if (cost.tuition.type === "residency_based") {
-    if (inState && cost.total_cost_of_attendance != null) {
-      return `$${cost.total_cost_of_attendance.toLocaleString("en-US")} (in-state)`;
-    }
-
-    const tuition = cost.tuition.out_of_state ?? 0;
-    const fees = cost.required_fees ?? 0;
-    const room = cost.room_and_board ?? 0;
-    const books = cost.books_and_supplies ?? 0;
-    const total = tuition + fees + room + books;
-
-    if (total > 0) {
-      return `$${total.toLocaleString("en-US")} (out-of-state)`;
-    }
-  }
-
-  if (cost.total_cost_of_attendance != null) {
-    return `$${cost.total_cost_of_attendance.toLocaleString("en-US")}`;
-  }
-
-  return "n/a";
-}
-
-function formatDebt(entry: SchoolComparisonEntry): string {
-  const debt = entry.sections.financial_aid_profile?.average_debt_at_graduation;
-  if (debt == null) {
-    return "n/a";
-  }
-  return `$${debt.toLocaleString("en-US")}`;
-}
-
-function formatDeadlinesCell(entry: SchoolComparisonEntry): string {
+function formatDeadlinesSummary(entry: SchoolComparisonEntry): string {
   const deadlines = entry.sections.deadlines;
   const policies = entry.sections.application_policies;
   if (!deadlines?.plans.length) {
@@ -474,19 +305,4 @@ function formatDeadlinesCell(entry: SchoolComparisonEntry): string {
   }
 
   return parts.length > 0 ? parts.join("; ") : "n/a";
-}
-
-function formatAppFee(entry: SchoolComparisonEntry): string {
-  const policies = entry.sections.application_policies;
-  if (!policies) {
-    return "n/a";
-  }
-  if (policies.application_fee === 0) {
-    return "$0";
-  }
-  if (policies.application_fee != null) {
-    const waiver = policies.fee_waiver_available ? " (waiver available)" : "";
-    return `$${policies.application_fee}${waiver}`;
-  }
-  return "n/a";
 }

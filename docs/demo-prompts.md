@@ -36,7 +36,7 @@ Optional args for `compare-colleges`: `home_state`, `gpa`, `sat`, `interests`, `
 
 Enable the connector and ask:
 
-> Use compare_schools for baylor, colorado-mesa, and odu with student_home_state CO. I'm a Colorado senior with a 3.6 GPA and 1180 SAT. Show the comparison report from the tool result to me — then add at most 2 bullets each on academic fit, cost, and deadlines if I asked for advice.
+> Use compare_schools for baylor, colorado-mesa, and odu with student_home_state CO. I'm a Colorado senior with a 3.6 GPA and 1180 SAT. Render the stats as a markdown table, then a second table for fit and tradeoffs — no prose paragraphs.
 
 Or run the **compare-colleges** MCP prompt with `home_state: CO`.
 
@@ -46,15 +46,15 @@ Or run the **compare-colleges** MCP prompt with `home_state: CO`.
 
 Use this when pitching enrollment or admissions marketing staff — not the student scenario.
 
-> I'm the Director of Admissions Marketing at a mid-size private university. A prospective student just asked Claude about our acceptance rate, average debt at graduation, and Early Decision deadlines — but they didn't use our verified data connector. Walk me through what could go wrong with generic AI answers versus what verified CDS data provides. Then pull the real numbers for Baylor University as an example of what "verified presence" looks like, citing sources and dates.
+> I'm the Director of Admissions Marketing at a mid-size private university. A prospective student just asked Claude about our acceptance rate, average debt at graduation, and Early Decision deadlines — but they didn't use our verified data connector. Walk me through what could go wrong with generic AI answers versus what verified CDS data provides. Then pull the real numbers for Baylor University as an example of what "verified presence" looks like, citing academic_year and last_updated.
 
 ---
 
 ## Sources demo
 
-Use this to highlight verified data vs. aggregators — every number should show `source` and `last_updated`.
+Use this to highlight verified data vs. aggregators — every number should show `last_updated` and `academic_year`.
 
-> Compare Baylor University and Colorado Mesa University on acceptance rate and average debt at graduation. For each statistic, cite the exact source URL and last_updated date from the official data. Do not use Niche, College Board, or other third-party sites.
+> Compare Baylor University and Colorado Mesa University on acceptance rate and average debt at graduation. For each statistic, cite the academic_year and last_updated from the verified data. Do not use Niche, College Board, or other third-party sites.
 
 ---
 

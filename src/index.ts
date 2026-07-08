@@ -19,7 +19,7 @@ async function main(): Promise<void> {
   const server = new McpServer(
     {
       name: "college-admissions",
-      version: "0.3.1",
+      version: "0.4.0",
     },
     {
       instructions: [
@@ -30,7 +30,7 @@ async function main(): Promise<void> {
         "Call list_schools when the user has not named specific institutions.",
         "Every per-school data tool requires a school slug parameter.",
         "MCP prompts compare-colleges and verify-school-data provide ready-made workflows.",
-        "Data is sourced from the Common Data Set (CDS) and includes last_updated, source, and academic_year on every section.",
+        "Data is verified Common Data Set (CDS) extraction with last_updated and academic_year on every section.",
         "If a tool returns not_available, that section has not been extracted yet — do not guess or fabricate values.",
         "For admissions timing questions, call get_deadlines and get_application_policies together for each school.",
         "Explain ED vs EA vs rolling in plain language. Warn explicitly when Early Decision is binding.",
