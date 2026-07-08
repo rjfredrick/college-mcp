@@ -2,6 +2,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
 import { listSchoolSummaries, resolveSchoolSlug } from "./data.js";
+import { buildSchoolComparison } from "./compare.js";
 import type { SchoolData, ToolSection } from "./schema.js";
 
 type ToolResponse = Record<string, unknown> | null;
@@ -105,6 +106,77 @@ export function registerAdmissionsTools(
         },
       ],
     }),
+  );
+
+  server.registerTool(
+    "compare_schools",
+    {
+      description:
+        "Compare 2–5 schools side-by-side. Returns a ready-to-show comparison report (markdown table) plus dashboard_json for structured follow-ups.",
+      inputSchema: {
+        schools: z
+          .array(z.string())
+          .min(2)
+          .max(5)
+          .describe(
+            "School slugs to compare (e.g. [\"baylor\", \"colorado-mesa\", \"odu\"])",
+          ),
+        student_home_state: z
+          .string()
+          .optional()
+          .describe(
+            "Student home state abbreviation for residency and cost columns, e.g. CO",
+          ),
+      },
+      annotations: readOnlyToolAnnotations,
+    },
+    async ({ schools: schoolSlugs, student_home_state }) => {
+      const resolved: string[] = [];
+      const errors: string[] = [];
+
+      for (const school of schoolSlugs) {
+        try {
+          resolved.push(resolveSchoolSlug(school));
+        } catch (error: unknown) {
+          const message =
+            error instanceof Error ? error.message : String(error);
+          errors.push(message);
+        }
+      }
+
+      if (resolved.length < 2) {
+        return formatError(
+          errors.length > 0
+            ? errors.join("; ")
+            : "At least two valid school slugs are required.",
+        );
+      }
+
+      const comparison = buildSchoolComparison(schools, resolved, {
+        student_home_state,
+      });
+
+      const content: Array<{ type: "text"; text: string }> = [];
+
+      if (errors.length > 0) {
+        content.push({
+          type: "text",
+          text: `Warnings: ${errors.join("; ")}`,
+        });
+      }
+
+      content.push({
+        type: "text",
+        text: comparison.comparison_report,
+      });
+
+      content.push({
+        type: "text",
+        text: JSON.stringify(comparison.dashboard_json, null, 2),
+      });
+
+      return { content };
+    },
   );
 
   server.registerTool(

@@ -41,6 +41,7 @@ See [docs/demo-prompts.md](docs/demo-prompts.md) for copy-paste prompts — a st
 | Tool | Description |
 |---|---|
 | `list_schools` | All available schools (slug, name, state, control) |
+| `compare_schools` | Side-by-side comparison for 2–5 schools in one call |
 | `get_school_info` | Institution identity |
 | `get_admission_stats` | Acceptance rate, applicants, yield |
 | `get_test_scores` | SAT/ACT middle 50 |
@@ -52,7 +53,14 @@ See [docs/demo-prompts.md](docs/demo-prompts.md) for copy-paste prompts — a st
 | `get_enrollment_profile` | Enrollment, student:faculty ratio |
 | `get_academic_programs` | Degrees and programs offered |
 
-Every data tool requires a `school` slug (e.g. `baylor`, `colorado-mesa`).
+Every per-school data tool requires a `school` slug (e.g. `baylor`, `colorado-mesa`, `odu`).
+
+## MCP prompts
+
+| Prompt | Description |
+|---|---|
+| `compare-colleges` | Student college comparison workflow |
+| `verify-school-data` | Enrollment VP verified-data demo |
 
 ## Adding a school
 

@@ -1,6 +1,6 @@
 # Demo Prompts — Student Choosing Between Schools
 
-Copy and paste these into Claude or Cursor with the **college-admissions** connector enabled. Read them as Jordan, a high school senior from Denver with a 3.6 GPA and an 1180 SAT, trying to choose between Baylor and Colorado Mesa.
+Copy and paste these into Claude or Cursor with the **college-admissions** connector enabled. Read them as Jordan, a high school senior from Denver with a 3.6 GPA and an 1180 SAT, trying to choose between Baylor, Colorado Mesa, and Old Dominion University (ODU).
 
 ## Setup
 
@@ -20,6 +20,25 @@ Copy and paste these into Claude or Cursor with the **college-admissions** conne
 ```
 
 Replace the path with your local clone.
+
+## MCP prompts (one-click)
+
+The server exposes built-in prompts — use these instead of copy-paste when your client supports MCP prompts:
+
+| Prompt | Use for |
+|---|---|
+| **compare-colleges** | Student comparison (defaults to baylor, colorado-mesa, odu) |
+| **verify-school-data** | Enrollment VP demo for a single school |
+
+Optional args for `compare-colleges`: `home_state`, `gpa`, `sat`, `interests`, `schools` (comma-separated slugs).
+
+## Fast demo (one tool call)
+
+Enable the connector and ask:
+
+> Use compare_schools for baylor, colorado-mesa, and odu with student_home_state CO. I'm a Colorado senior with a 3.6 GPA and 1180 SAT. Show the comparison report from the tool result to me — then add at most 2 bullets each on academic fit, cost, and deadlines if I asked for advice.
+
+Or run the **compare-colleges** MCP prompt with `home_state: CO`.
 
 ---
 

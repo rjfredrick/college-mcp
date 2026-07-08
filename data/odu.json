@@ -1,0 +1,152 @@
+{
+  "school": {
+    "id": "odu",
+    "name": "Old Dominion University",
+    "slug": "odu",
+    "website": "https://www.odu.edu",
+    "control": "public",
+    "city": "Norfolk",
+    "state": "VA"
+  },
+  "admission_stats": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "acceptance_rate": 0.904,
+    "applicants": 15100,
+    "admitted": 13645,
+    "enrolled": 2721,
+    "yield": 0.199
+  },
+  "test_scores": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "sat_reading_writing": { "min": 570, "max": 650 },
+    "sat_math": { "min": 530, "max": 630 },
+    "sat_composite": { "min": 1120, "max": 1270 },
+    "act_composite": { "min": 24, "max": 29 },
+    "test_optional": true,
+    "percent_submitting_sat": 13,
+    "percent_submitting_act": 2
+  },
+  "gpa_profile": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "average_gpa": 3.45,
+    "percent_in_top_tenth": 12,
+    "percent_in_top_quarter": 36,
+    "percent_in_top_half": 72
+  },
+  "deadlines": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "plans": [
+      {
+        "type": "early_action",
+        "label": "Early Action",
+        "binding": false,
+        "rolling": false,
+        "application_deadline": "December 1",
+        "priority_application_deadline": null,
+        "notification_date": "January 15",
+        "enrollment_deposit_deadline": null
+      },
+      {
+        "type": "regular",
+        "label": "Regular Decision",
+        "binding": false,
+        "rolling": true,
+        "application_deadline": "February 1",
+        "priority_application_deadline": "December 1",
+        "notification_date": null,
+        "enrollment_deposit_deadline": null
+      }
+    ]
+  },
+  "application_policies": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "admissions_url": "https://www.odu.edu/apply",
+    "has_application_fee": true,
+    "application_fee": 50,
+    "fee_waiver_available": true,
+    "online_same_fee": true,
+    "reply_policy": {
+      "type": "may_1_or_weeks_after",
+      "description": "Must reply by May 1 or within 4 weeks if notified thereafter",
+      "weeks_after_notification": 4
+    },
+    "housing_deposit": {
+      "amount": null,
+      "deadline": "May 15",
+      "refundable": null
+    },
+    "deferred_admission_allowed": true,
+    "max_deferral_period": "12 months",
+    "offers_early_decision": false,
+    "offers_early_action": true,
+    "restrictive_early_action": false,
+    "notification_rolling": true,
+    "has_application_closing_date": true,
+    "test_policy_summary": "SAT/ACT considered if submitted; low submission rates",
+    "policy_notes": [
+      "Rolling notification begins October 15.",
+      "First-time, first-year students accepted for terms other than fall.",
+      "Fall 2024 Early Action: 8,739 applied, 7,763 admitted, 1,383 enrolled."
+    ]
+  },
+  "cost_of_attendance": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "tuition": {
+      "type": "residency_based",
+      "in_state": 8040,
+      "out_of_state": 28605
+    },
+    "required_fees": 5280,
+    "room_and_board": 15676,
+    "books_and_supplies": 1790,
+    "total_cost_of_attendance": 30786
+  },
+  "financial_aid_profile": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "percent_need_fully_met": null,
+    "average_need_based_package": 30437,
+    "average_debt_at_graduation": 32043
+  },
+  "enrollment_profile": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "total_enrollment": 23743,
+    "undergraduate_enrollment": 17746,
+    "graduate_enrollment": 5997,
+    "student_faculty_ratio": "13:1",
+    "percent_out_of_state": 8
+  },
+  "academic_programs": {
+    "last_updated": "2025-06-10",
+    "source": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+    "academic_year": "2024-2025",
+    "degrees_offered": [
+      "Certificate",
+      "Bachelor's",
+      "Post-bachelor's certificate",
+      "Master's",
+      "Post-master's certificate",
+      "Doctoral degree – research/scholarship",
+      "Doctoral degree – professional practice"
+    ],
+    "programs": [
+      { "name": "Nursing", "level": "bachelor" },
+      { "name": "Business", "level": "bachelor" }
+    ]
+  }
+}

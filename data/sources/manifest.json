@@ -15,6 +15,14 @@
       "local_pdf": "colorado-mesa-cds-2024-2025.pdf",
       "source_url": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/cds2024-2025.pdf",
       "source_page": "https://www.coloradomesa.edu/institutional-research/documents/common-data-set/"
+    },
+    {
+      "slug": "odu",
+      "name": "Old Dominion University",
+      "local_pdf": "odu-cds-2024-2025.pdf",
+      "source_url": "https://www.odu.edu/sites/default/files/2025/documents/common-data-set-2024-2025.pdf",
+      "source_page": "https://www.odu.edu/institutional-research/common-data-set",
+      "last_updated_on_source": "2025-06-10"
     }
   ]
 }

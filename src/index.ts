@@ -4,6 +4,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
 import { listSchoolSlugs, loadAllSchools } from "./data.js";
+import { COMPARE_OUTPUT_FORMAT } from "./compare.js";
+import { registerAdmissionsPrompts } from "./prompts.js";
 import { registerAdmissionsTools } from "./tools.js";
 
 async function main(): Promise<void> {
@@ -17,14 +19,17 @@ async function main(): Promise<void> {
   const server = new McpServer(
     {
       name: "college-admissions",
-      version: "0.2.0",
+      version: "0.3.1",
     },
     {
       instructions: [
         "This hub provides verified admissions data for multiple colleges and universities.",
         `Available schools: ${slugs.join(", ")}.`,
-        "Call list_schools first when comparing institutions or when the user has not named a specific school.",
-        "Every data tool requires a school slug parameter.",
+        "When comparing 2+ schools, prefer compare_schools (include student_home_state when known).",
+        COMPARE_OUTPUT_FORMAT,
+        "Call list_schools when the user has not named specific institutions.",
+        "Every per-school data tool requires a school slug parameter.",
+        "MCP prompts compare-colleges and verify-school-data provide ready-made workflows.",
         "Data is sourced from the Common Data Set (CDS) and includes last_updated, source, and academic_year on every section.",
         "If a tool returns not_available, that section has not been extracted yet — do not guess or fabricate values.",
         "For admissions timing questions, call get_deadlines and get_application_policies together for each school.",
@@ -36,6 +41,7 @@ async function main(): Promise<void> {
   );
 
   registerAdmissionsTools(server, schools);
+  registerAdmissionsPrompts(server);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
