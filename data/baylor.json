@@ -137,6 +137,10 @@
       "Master's",
       "Doctoral degree – research/scholarship",
       "Doctoral degree – professional practice"
+    ],
+    "programs": [
+      { "name": "Nursing", "level": "bachelor" },
+      { "name": "Business", "level": "bachelor" }
     ]
   }
 }

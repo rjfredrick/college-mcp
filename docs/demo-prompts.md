@@ -4,9 +4,9 @@ Copy and paste these into Claude or Cursor with the **college-admissions** conne
 
 ## Setup
 
-**Cursor:** Open this repo — `.cursor/mcp.json` configures the hub automatically. Run `pnpm build`, then enable **college-admissions** in Customize.
+**Cursor:** Open this repo — `.cursor/mcp.json` configures the hub automatically via `pnpm dev`. Enable **college-admissions** in Customize.
 
-**Claude Desktop:** Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+**Claude Desktop:** Run `pnpm build`, then add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -19,7 +19,23 @@ Copy and paste these into Claude or Cursor with the **college-admissions** conne
 }
 ```
 
-Replace the path with your local clone. Run `pnpm build` first.
+Replace the path with your local clone.
+
+---
+
+## Enrollment VP demo
+
+Use this when pitching enrollment or admissions marketing staff — not the student scenario.
+
+> I'm the Director of Admissions Marketing at a mid-size private university. A prospective student just asked Claude about our acceptance rate, average debt at graduation, and Early Decision deadlines — but they didn't use our verified data connector. Walk me through what could go wrong with generic AI answers versus what verified CDS data provides. Then pull the real numbers for Baylor University as an example of what "verified presence" looks like, citing sources and dates.
+
+---
+
+## Sources demo
+
+Use this to highlight verified data vs. aggregators — every number should show `source` and `last_updated`.
+
+> Compare Baylor University and Colorado Mesa University on acceptance rate and average debt at graduation. For each statistic, cite the exact source URL and last_updated date from the official data. Do not use Niche, College Board, or other third-party sites.
 
 ---
 

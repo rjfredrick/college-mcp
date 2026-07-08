@@ -94,13 +94,13 @@ Target buyer: **VP of Enrollment Management** or **Director of Admissions Market
 ### Phase 1 — Build Before You Pitch (Month 1–2)
 - Extract and build live MCP servers for 2–3 schools using public CDS data (Baylor, ODU already extracted)
 - Validate schema and extraction pipeline against real data
-- Test live demo with wife (high school college counselor) — does it hold up under a real counselor's workflow with a real student?
+- Test live demo with college coordinator — does it hold up under a real counselor's workflow with a real student?
 - Refine schema based on feedback
 
 ### Phase 2 — Pilot School Acquisition (Month 2–6)
 - Target profile: mid-size, tuition-dependent, enrollment-anxious, regional private or competitive public universities
 - Avoid: Ivy-adjacent schools (don't feel the pain), community colleges (open admission, less relevant), CDS non-publishers as first targets
-- Warm path in: wife's relationships with admissions reps, NACAC and regional counselor conferences, LinkedIn intros
+- Warm path in: college coordinator's relationships with admissions reps, NACAC and regional counselor conferences, LinkedIn intros
 - Pitch: "Here's your school, already live — take a look"
 - Goal: 3–5 pilot schools, likely discounted or free, in exchange for feedback and a case study
 
@@ -138,12 +138,56 @@ Annual SaaS subscription per school. Target pricing: **$8k–$15k/year** dependi
 
 ---
 
+## Consumer Product — Prompt Pack (B2C)
+
+**Not a pivot.** Schools remain the primary revenue line. The prompt pack is distribution, demand gen, and counselor/parent monetization on top of the same verified data layer.
+
+### The product
+
+Sell a **"how to research colleges with AI without getting lied to"** pack — not generic ChatGPT prompts, not an app:
+
+1. **Prompt pack** — fit, cost, debt, deadlines, tradeoffs, decision framework (seed content in `docs/demo-prompts.md`)
+2. **Setup guide** — connect `college-admissions` in Claude Desktop / Cursor in ~10 minutes
+3. **Verification guide** — require `source`, `last_updated`, `academic_year`; handle `not_available`; never trust Niche/aggregators alone
+
+Working title: *Official College Data in Claude: Prompt Pack for Seniors*
+
+### Target buyers
+
+| Segment | Price | Notes |
+|---|---|---|
+| Parents of seniors | $19–29 one-time | Best consumer WTP; anxious, paying |
+| Counselors | $79–149 | Bulk/caseload use; college coordinator network; co-author credibility |
+| Annual refresh | $15/yr | New admissions cycle, updated prompts |
+
+Students direct = weakest (low WTP, setup friction, piracy). Lead with parents and counselors.
+
+### Role in the business
+
+- **Demand gen for B2B** — prompts teach sourced answers; exposes when a school isn't in the registry → "Ask your admissions office to get verified"
+- **No client app** — aligns with bring-your-own-assistant; MCP is the engine, the pack is the playbook
+- **Low marginal cost** — extends existing demo prompts; update each cycle
+- **Not core ARR** — supplement to school subscriptions; a few $k/mo at scale is realistic
+
+### Constraints
+
+- Buyer needs Claude (+ MCP setup) — guide must cover friction or churn at step 1
+- Prompts commoditize — moat is verified schools + annual updates + counselor trust
+- Weak with 2 schools today — sell methodology + live examples until hub grows
+
+### B2B flywheel
+
+Families/counselors use pack → query verified data → school missing or wrong in AI → enrollment VP pitch: *"Families are already using this workflow. Is your data in it?"*
+
+---
+
 ## Expansion Path (Year 3+)
 
 - **Beyond admissions** — course catalogs, career outcomes, campus life data; more tools per school = higher ACV, multi-office buyer
 - **International markets** — UK, Canada, Australia; less standardized data = more moat for whoever solves extraction first
 - **Platform licensing** — as agent platforms (OpenAI, Google, Anthropic) mature their tool ecosystems, charge for verified higher-ed data access at the platform level, not just per school
-- **K-12 counselor tools** — downstream products built on the verified data layer (your wife's world)
+- **K-12 counselor tools** — downstream products built on the verified data layer (college coordinator workflow)
+- **Consumer prompt pack** — parent/counselor editions; can launch Year 2 once demo prompts are validated (see Consumer Product section)
 
 ---
 
@@ -160,8 +204,10 @@ Annual SaaS subscription per school. Target pricing: **$8k–$15k/year** dependi
 
 - [ ] Build live MCP demo server for Baylor using extracted CDS data
 - [ ] Build live MCP demo server for ODU
-- [ ] Get wife to pressure-test demo with a real student scenario
+- [ ] Get college coordinator to pressure-test demo with a real student scenario
 - [ ] Draft one-pager pitch for enrollment VPs
 - [ ] Identify 10 target pilot schools by selectivity/size/enrollment-anxiety profile
 - [ ] Check IPEDS API access and data structure
 - [ ] IP gut-check with a lawyer if needed
+- [ ] Outline consumer prompt pack product (parents + counselor editions)
+- [ ] Draft setup + verification guide sections for the prompt pack

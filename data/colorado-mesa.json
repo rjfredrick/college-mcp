@@ -95,7 +95,9 @@
     "test_policy_summary": "SAT/ACT not required for admission; considered if submitted",
     "policy_notes": [
       "Applications are reviewed on a rolling basis.",
-      "First-time, first-year students are accepted for terms other than fall."
+      "First-time, first-year students are accepted for terms other than fall.",
+      "Fall priority application deadline: August 1 (catalog). Merit scholarship priority: May 1 (admissions site).",
+      "No fixed application closing date for first-year fall admission (CDS C14)."
     ]
   },
   "cost_of_attendance": {
@@ -109,7 +111,8 @@
     },
     "required_fees": 984,
     "room_and_board": 13866,
-    "books_and_supplies": 2400
+    "books_and_supplies": 2400,
+    "total_cost_of_attendance": 26880
   },
   "financial_aid_profile": {
     "last_updated": "2025-01-01",
@@ -139,6 +142,10 @@
       "Master's",
       "Doctoral degree – research/scholarship",
       "Doctoral degree – professional practice"
+    ],
+    "programs": [
+      { "name": "Nursing", "level": "bachelor" },
+      { "name": "Business Administration", "level": "bachelor" }
     ]
   }
 }

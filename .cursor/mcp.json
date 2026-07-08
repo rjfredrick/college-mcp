@@ -1,8 +1,9 @@
 {
   "mcpServers": {
     "college-admissions": {
-      "command": "node",
-      "args": ["${workspaceFolder}/dist/index.js"]
+      "command": "pnpm",
+      "args": ["dev"],
+      "cwd": "${workspaceFolder}"
     }
   }
 }
