@@ -1,0 +1,133 @@
+{
+  "school": {
+    "id": "colorado-mountain",
+    "name": "Colorado Mountain College",
+    "slug": "colorado-mountain",
+    "website": "https://coloradomtn.edu",
+    "control": "public",
+    "city": "Steamboat Springs",
+    "state": "CO"
+  },
+  "admission_stats": {
+    "last_updated": "2025-04-10",
+    "source": "https://nces.ed.gov/collegenavigator/?id=126711",
+    "academic_year": "2024-2025",
+    "acceptance_rate": null,
+    "applicants": null,
+    "admitted": null,
+    "enrolled": null,
+    "yield": null
+  },
+  "test_scores": {
+    "last_updated": "2025-04-10",
+    "source": "https://coloradomtn.edu/apply-get-started/new-student-orientation/steamboat-springs-orientation/",
+    "academic_year": "2024-2025",
+    "sat_reading_writing": null,
+    "sat_math": null,
+    "sat_composite": null,
+    "act_composite": null,
+    "test_optional": true,
+    "percent_submitting_sat": null,
+    "percent_submitting_act": null
+  },
+  "gpa_profile": null,
+  "deadlines": {
+    "last_updated": "2025-04-10",
+    "source": "https://coloradomtn.edu/apply-get-started/apply-now/",
+    "academic_year": "2024-2025",
+    "plans": [
+      {
+        "type": "rolling",
+        "label": "Rolling admission",
+        "binding": false,
+        "rolling": true,
+        "application_deadline": null,
+        "priority_application_deadline": null,
+        "notification_date": null,
+        "enrollment_deposit_deadline": null
+      }
+    ]
+  },
+  "application_policies": {
+    "last_updated": "2025-04-10",
+    "source": "https://coloradomtn.edu/apply-get-started/apply-now/",
+    "academic_year": "2024-2025",
+    "admissions_url": "https://coloradomtn.edu/apply-get-started/apply-now/",
+    "has_application_fee": false,
+    "application_fee": 0,
+    "fee_waiver_available": null,
+    "online_same_fee": true,
+    "reply_policy": {
+      "type": "no_set_date",
+      "description": "Open / rolling admission; no set reply date",
+      "weeks_after_notification": null
+    },
+    "housing_deposit": null,
+    "deferred_admission_allowed": null,
+    "max_deferral_period": null,
+    "offers_early_decision": false,
+    "offers_early_action": false,
+    "restrictive_early_action": false,
+    "notification_rolling": true,
+    "has_application_closing_date": false,
+    "test_policy_summary": "SAT/ACT not required for admission; placement via transcripts, SAT/ACT if available, or Accuplacer",
+    "policy_notes": [
+      "Multi-campus public college; Common Data Set and IPEDS figures are institution-wide (not Steamboat-only).",
+      "Steamboat Springs is one of three residential campuses (with Leadville and Spring Valley near Glenwood Springs).",
+      "First-year students under 21 attending Leadville, Spring Valley, or Steamboat Springs are generally required to live on campus.",
+      "Tuition uses a local taxing-district model: in-district rates (including Steamboat Springs district residents) are lower than general Colorado in-state rates.",
+      "IPEDS 2024-25 published tuition & fees: in-district $2,616; in-state $5,112; out-of-state $12,840 (schema in_state/out_of_state fields use the latter two).",
+      "CMC publishes a 2024/2025 Common Data Set (Excel on SharePoint) at coloradomtn.edu IR; CDS-sourced admission counts pending local archive."
+    ]
+  },
+  "cost_of_attendance": {
+    "last_updated": "2025-04-10",
+    "source": "https://nces.ed.gov/collegenavigator/?id=126711",
+    "academic_year": "2024-2025",
+    "tuition": {
+      "type": "residency_based",
+      "in_state": 5112,
+      "out_of_state": 12840
+    },
+    "required_fees": null,
+    "room_and_board": 12680,
+    "books_and_supplies": 840,
+    "other_expenses": 1811,
+    "total_cost_of_attendance": 20443
+  },
+  "financial_aid_profile": {
+    "last_updated": "2025-04-10",
+    "source": "https://nces.ed.gov/collegenavigator/?id=126711",
+    "academic_year": "2024-2025",
+    "percent_receiving_aid": 55,
+    "percent_need_fully_met": null,
+    "average_need_based_package": 6868,
+    "average_debt_at_graduation": null
+  },
+  "enrollment_profile": {
+    "last_updated": "2025-04-10",
+    "source": "https://nces.ed.gov/collegenavigator/?id=126711",
+    "academic_year": "2024-2025",
+    "total_enrollment": 5494,
+    "undergraduate_enrollment": 5494,
+    "graduate_enrollment": 0,
+    "student_faculty_ratio": "10:1",
+    "percent_out_of_state": null
+  },
+  "academic_programs": {
+    "last_updated": "2025-04-10",
+    "source": "https://nces.ed.gov/collegenavigator/?id=126711",
+    "academic_year": "2024-2025",
+    "degrees_offered": [
+      "Certificate",
+      "Associate",
+      "Bachelor's"
+    ],
+    "programs": [
+      { "name": "Nursing", "level": "bachelor" },
+      { "name": "Business Administration", "level": "bachelor" },
+      { "name": "Ski Area Operations", "level": "associate" },
+      { "name": "Liberal Arts & Sciences", "level": "associate" }
+    ]
+  }
+}

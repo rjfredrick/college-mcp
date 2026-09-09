@@ -78,7 +78,7 @@ pnpm start    # run compiled server
 
 ## Data
 
-School JSON files live in `data/`. Source CDS PDFs are in `data/sources/`. Each section includes `last_updated`, `source`, and `academic_year`.
+School JSON files live in `data/`. Source CDS PDFs are in `data/sources/` (see `manifest.json`). Schools whose CDS we could not archive are tracked in [`data/sources/cds-access.md`](data/sources/cds-access.md). Each section includes `last_updated`, `source`, and `academic_year`.
 
 ## Business plan
 
